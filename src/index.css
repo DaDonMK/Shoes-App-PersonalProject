@@ -7,6 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
 }
+.new-release{
+  padding-left: 20px;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -262,6 +265,7 @@ code {
   background-color: black;
   color: white;
   font-size: small;
+  font-style: italic;
   padding: 5px;
   margin-bottom: 0px;
 }

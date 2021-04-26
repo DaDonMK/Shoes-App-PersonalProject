@@ -165,7 +165,7 @@ const Header = (props) => {
             </div> */}
                 </nav>
             <h2 className='black-banner'>
-               <p1>THE ONLY PLACE FOR YOUR SHOE NEEDS.</p1> 
+               <p1>THE ONLY PLACE FOR YOUR SHOE NEEDS</p1> 
             </h2>
             </div>
     

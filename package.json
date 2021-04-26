@@ -1,0 +1,70 @@
+{
+  "name": "e-commerce",
+  "version": "0.1.0",
+  "private": true,
+  "main": "server/index.js",
+  "proxy": "http://localhost:4200",
+  "dependencies": {
+    "@stripe/react-stripe-js": "^1.4.0",
+    "@stripe/stripe-js": "^1.13.2",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "cors-middleware": "^3.0.0",
+    "db": "^3.3.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "massive": "^6.7.1",
+    "nodemailer": "^6.5.0",
+    "nodemon": "^2.0.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.3",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-stripe-checkout": "^2.6.3",
+    "react-stripe-elements": "^6.1.2",
+    "react-toastify": "^7.0.3",
+    "redux-promise-middleware": "^6.1.2",
+    "stripe": "^8.145.0",
+    "twilio": "^3.61.0",
+    "uuid": "^8.3.2",
+    "uuidv4": "^6.2.7",
+    "web-vitals": "^1.1.1",
+    "yarn": "^1.22.10"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

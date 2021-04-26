@@ -1,5 +1,5 @@
 require('dotenv').config()
-const{SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, AUTH_TOKEN, ACCOUNT_SID, STRIPE_KEY} = process.env
+const{SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, AUTH_TOKEN, ACCOUNT_SID, STRIPE_KEY, NODEM_PASS} = process.env
 
 const cors = require('cors')
 const express = require('express')
@@ -7,6 +7,10 @@ const massive = require('massive')
 const twilio = require('twilio')
 const stripe = require('stripe')(STRIPE_KEY)
 const uuid = require('uuid').v4
+const bodyParser = require('body-parser')
+const exphbs = require('express-handlebars')
+const nodemailer = require('nodemailer')
+const path = require('path')
 
 const client = new twilio(ACCOUNT_SID, AUTH_TOKEN)
 
@@ -41,6 +45,7 @@ massive({
 })
 .catch(err => console.log(err))
 
+// STRIPE
 
 app.post('/checkout', async(req, res) => {
     console.log('Request', req.body)
@@ -89,7 +94,7 @@ app.post('/checkout', async(req, res) => {
     res.json({error, status})
 })
 
-
+// TWILIO
 
 app.get('/message', (req, res) => {
     res.send('Welcome to express server')
@@ -107,56 +112,48 @@ app.get('/send-message', (req, res) => {
     })
 })
 
-// app.get('/checkout', async(req, res) => {
-//     console.log("Request:", req.body)
+// NODEMAILER
 
-//     let error;
-//     let status;
-
-//     try{
-//         const{product, token} = req.body
-        
-//         const customer = await
-//         stripe.customers.create({
-//             email: token.email,
-//             source: token.id
-//         });
-
-//         const idempotency_key = uuid()
-//         const charge = await stripe.charges.create(
-//             {
-            
-//                 amount: product.price * 100,
-//                 currency: "usd",
-//                 customer: customer.id,
-//                 receipt_email: token.email,
-//                 description: `Purchased the ${product.shoe_name}`,
-//                 shipping: {
-//                     name: token.card.name,
-//                     address: {
-//                         line1: token.card.address_line1,
-//                         line2: token.card.address_line2,
-//                         city: token.card.address_city,
-//                         country: token.card.address_country,
-//                         postal_code: token.card.address_zip
-//                     }
-//                 }
-
-//         },
-//         {
-//             idempotency_key
-//         }
-        
-//         );
-//         console.log("charge:", {charge})
-//         status='success'
-//     } catch(error){
-//         console.log('Error:', error)
-//         status = 'failure'
-//     }
-//     res.json({error, status})
+// app.engine('handlebars', exphbs())
+// app.set('view enginer', 'handlebars')
+// app.use('/public', express.static(path.join(__dirname, 'public')))
+// app.use(bodyParser.urlencoded({extended: false}))
+// app.use(bodyParser.json())
+// app.get('/mail', (req, res) => {
+//     res.send('Hello')
 // })
 
+
+app.post('/email', (req, res) => {
+
+    const {email_add} = req.body
+    // const {email_add2} = req.query
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'mustafakhan98@gmail.com',
+            pass: NODEM_PASS
+        }
+    })
+    let mailOptions = {
+        from: 'mustafakhan98@gmail.com',
+        to: email_add,
+        subject: 'test',
+        text: 'it works!!'
+    }
+
+    // console.log( email_add + ' ')
+    transporter.sendMail(mailOptions, function(err, data) {
+        if(err){
+            // console.log('error in index  ' + email_add + ' ')
+            res.send('Error Occurs: ' + err)
+        }else{
+            console.log('sent')
+            res.send('Email sent!')
+        }
+    })
+})
 
 
 // authorization endpoints

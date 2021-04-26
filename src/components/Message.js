@@ -13,22 +13,9 @@ const Message = (props) => {
         price: props.total,
     })
 
-    // async function handleToken(token) {
-    //     const response = await axios.post('http://localhost:4200/checkout', {
-    //         token,
-    //         product
-    //     })
-    //     const {status} = response.data
-
-    //     if(status === 'success'){
-    //         console.log('success')
-    //         toast.success('PAYMENT SUCCESSFUL')
-    //     }else{
-    //         console.log('eroor')
-
-    //         toast.error('PAYMENT UNSECESSFUL')
-    //     }
-    // }
+    const [btn, setbtn] = useState(false)
+    const [input_email, setinput_email] = useState('')
+    
 
      function handleToken (token){
 
@@ -38,8 +25,11 @@ const Message = (props) => {
         })
         .then(res => {
             if(res.data.status === 'success'){
+                setbtn(true)
                 console.log('success')
+                
                 toast.success('PAYMENT SUCCESSFUL')
+
             }else {
                 console.log('eroor   ' + res.data)
 
@@ -47,16 +37,44 @@ const Message = (props) => {
 
             }
         }).catch(error => console.log(error))
-        // const {status} = response.data
 
-        // if(status === 'success'){
-        //     console.log('success')
-        //     toast.success('PAYMENT SUCCESSFUL')
-        // }else{
-        //     console.log('eroor')
+    }
 
-        //     toast.error('PAYMENT UNSECESSFUL')
-        // }
+
+    function email() {
+        let email_add = input_email
+        // const email_add2 = 'foreverything005@gmail.com'
+
+        axios.post('http://localhost:4200/email', {email_add})
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => console.log('error in email ' + err))
+    }
+
+    function sendText(number){
+        console.log('send text: ' + number)
+        const message = 'Order on the Way!'
+
+        fetch(`http://localhost:4200/send-message?recipient=${number}&textmessage=${message}`)
+        // .then(res => console.log('success twilio ' + res.data))
+        // .then(response => response.json())
+
+        // .then( toast.success('Text send to ' + number))
+        .catch(err => toast.error(err))
+    }
+
+    function checkOut(){
+        // const {text} = this.state
+
+        const number = window.prompt('Enter phone number (only numbers)')
+        console.log(number)
+        sendText(number)
+    //    <button onClick={this.sendText}>Send Text</button>
+    }
+
+    function inputVal(input){
+        setinput_email(input)
     }
        
         return(
@@ -69,6 +87,19 @@ const Message = (props) => {
             shippingAddress
             amount={product.price * 100}
             name={product.name}/>
+            
+            <div>
+                {btn === true ? 
+                <section>
+                    <input onChange={(event) => inputVal(event.target.value)}/>
+                    <button onClick={email}>Email</button> 
+                    <section>
+                        <button onClick={checkOut}>Send message with TWILIO</button>
+                    </section>
+                </section>
+                : null}
+            </div>
+
 
             </div>
         )

@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React, {Component} from 'react'
 import Header from './Header'
-import StripeCheckout from 'react-stripe-checkout'
 import {toast} from 'react-toastify'
 import Message from './Message'
 import { CurrentCallPage } from 'twilio/lib/rest/preview/trusted_comms/currentCall'
@@ -21,43 +20,15 @@ class Cart extends Component{
             quant: 1,
             count: 0,
             test: [],
-            text: {
-                textmessage: 'Order on the WAY!'
-            },
             logIn: false
         }
-        // this.handleToken=this.handleToken.bind(this)
     }
-
-    //  async handleToken(token) {
-    //      console.log(this.state.price)
-    //     const response = await axios.post('http://localhost:4200/checkout', {
-    //         token,
-    //         product: {
-    //             name: 'nike air force',
-    //             price: 50
-    //         }
-    //     })
-    //     const {status} = response.data
-
-    //     if(status === 'success'){
-    //         toast.success('SUCCESS')
-    //     }else{
-    //         toast.error('ERROR')
-    //     }
-    // }
 
 
     async componentDidMount(){
         
          let res = await axios.get('/api/cart')
 
-
-        // axios.get('/api/cart')
-        // .then(res => {
-            // cart2.push(res.data)
-            
-            // console.log(cart2)
             this.setState({cart2: res.data})
             console.log(this.state.cart2)
             this.setState({test: this.state.cart2})
@@ -65,33 +36,31 @@ class Cart extends Component{
             if(this.props.logg.loggedIn === true){
                 this.setState({login: true})
             }
-            // this.setState({price: this.state.cart2[this.state.count].price})
-        // })
-        // .catch(err => console.log(err + ' in getcart'))
     }
 
 
-    checkOutDisplay(){
 
-    }
+    // sendText = (number) => {
+    //     console.log('send text: ' + number)
+    //     const message = 'Order on the Way!'
 
-    sendText = (number) => {
-        console.log('send text: ' + this.state.text.recipient)
-        const {text} = this.state
+    //     fetch(`http://localhost:4200/send-message?recipient=${number}&textmessage=${message}`)
+    //     // .then(res => console.log('success twilio ' + res.data))
+    //     // .then(response => response.json())
 
-        fetch(`http://localhost:4200/send-message?recipient=${number}&textmessage=${text.textmessage}`)
-        .catch(err => console.log(err))
-    }
+    //     // .then( toast.success('Text send to ' + number))
+    //     .catch(err => toast.error(err))
+    // }
 
-    checkOut = () => {
-        // const {text} = this.state
+    // checkOut = () => {
+    //     // const {text} = this.state
 
-        const number = window.prompt('Enter phone number (only numbers)')
-        console.log(number)
-        this.setState({text: {recipient: number}})
-        this.sendText(number)
-    //    <button onClick={this.sendText}>Send Text</button>
-    }
+    //     const number = window.prompt('Enter phone number (only numbers)')
+    //     console.log(number)
+    //     this.setState({text: {recipient: number}})
+    //     this.sendText(number)
+    // //    <button onClick={this.sendText}>Send Text</button>
+    // }
 
     inputVal(input){
         this.setState({input: input})
@@ -110,6 +79,17 @@ class Cart extends Component{
         .catch(err => console.log(err + ' in setQuant'))
         window.location.reload(true)
 
+    }
+
+    email() {
+        const email_add = 'foreverything005@gmail.com'
+        // const email_add2 = 'foreverything005@gmail.com'
+
+        axios.post('http://localhost:4200/email', {email_add})
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => console.log('error in email ' + err))
     }
 
     deleteItem(id){
@@ -173,14 +153,15 @@ class Cart extends Component{
                 <div className='checkout'>
                     <h2>CHECKOUT</h2>
                     {/* {this.checkOutDisplay} */}
-                    <h2>{this.props.logg.loggedIn ? <div>
-                        <button onClick={this.checkOut}>Send message with TWILIO</button>
-                        <h3 clasName='total'>Total: ${priceMapped}</h3>
-                         <Message total = {priceMapped}/>                    
+                    <h2 className = 'total'>{this.props.logg.loggedIn ? <div >
+                        {/* <button onClick={this.checkOut}>Send message with TWILIO</button> */}
+                        <h3 className='priceMapped'>Total: ${priceMapped}</h3>
+                        <br />
+                         <Message className='message' total = {priceMapped}/>                    
                     </div> 
                     :
-                    <h3>Log in to Checkout</h3>}</h2>
-                
+                    null}</h2>
+                    {/* <button onClick={this.email}>EMAIL</button> */}
                 </div>
                 </section>
             </div>

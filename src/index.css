@@ -7,6 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
 }
+
+
+
 .new-release{
   padding-left: 20px;
 }
@@ -36,19 +39,40 @@ code {
 }
 .cart-gif{
   height: 420px;
-  margin-right:50px;
+  /* margin-right:50px; */
 }
 
 .total{
-  margin-top: 150px;
+  /* width: 105%; */
+
+  /* padding: 10px; */
+  /* height: ; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  /* margin-top: 150px; */
+}
+
+.message{
+  /* margin-top: 20px; */
+  bottom: 20px;
 }
 
 .checkout{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* justify-content: center; */
+  align-items: center;
+  /* align-content: center; */
   margin-right: 50px;
   margin-top:20px;
   background-color:#FFFFE0;
   border: solid black 1px;
-  padding: 20px;
+  /* padding: 20px; */
+  width: 350px;
+  height: 400px;
 }
 
 .logo{

@@ -124,13 +124,13 @@ class Cart extends Component{
                 {/* {this.setState({price: this.state.price + element.price})} */}
                 <h4 className='cart-name'>{element.name}</h4>
                 <img className = 'shoe-images' src={element.image} alt='images' />
-                <h5>Size: {element.size}</h5>
-                <h5>Price: ${element.price}</h5>
+                <p>Size: {element.size}</p>
+                <p>Price: ${element.price}</p>
                 <input 
                 type="text"
                 placeholder="Quantity"
                  onChange={(event) => this.inputVal(event.target.value)}></input>
-                <h5>You selected: {element.quant} pair(s) of {element.name}</h5>  
+                <p>You selected: {element.quant} pair(s) of {element.name}</p>  
                 
                 <button onClick={() => this.setQuant(this.state.input, element.id, element.price, element.name, element.image, element.size, element.original_price)}>Set Quantity</button>
                 <button onClick={() => this.deleteItem(element.id)}>Delete</button>

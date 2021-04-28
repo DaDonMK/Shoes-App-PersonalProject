@@ -1,16 +1,14 @@
 require('dotenv').config()
 const{SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, AUTH_TOKEN, ACCOUNT_SID, STRIPE_KEY, NODEM_PASS} = process.env
 
+const path = require('path') 
 const cors = require('cors')
 const express = require('express')
 const massive = require('massive')
 const twilio = require('twilio')
 const stripe = require('stripe')(STRIPE_KEY)
 const uuid = require('uuid').v4
-const bodyParser = require('body-parser')
-const exphbs = require('express-handlebars')
 const nodemailer = require('nodemailer')
-const path = require('path')
 
 const client = new twilio(ACCOUNT_SID, AUTH_TOKEN)
 
@@ -41,7 +39,7 @@ massive({
 })
 .then(dbInstance => {
     app.set('db', dbInstance)
-    app.listen(SERVER_PORT, () => console.log(`Server is bumping on ${SERVER_PORT}`))
+    // app.listen(SERVER_PORT, () => console.log(`Server is bumping on ${SERVER_PORT}`))
 })
 .catch(err => console.log(err))
 
@@ -139,8 +137,8 @@ app.post('/email', (req, res) => {
     let mailOptions = {
         from: 'mustafakhan98@gmail.com',
         to: email_add,
-        subject: 'test',
-        text: 'it works!!'
+        subject: 'Sneaker Shouts',
+        text: 'Order on the WAY!'
     }
 
     // console.log( email_add + ' ')
@@ -182,3 +180,12 @@ app.post('/api/cart', shoesCtrl.create)
 app.get('/api/cart', shoesCtrl.getCart)
 app.put('/api/cart/:name', shoesCtrl.updatePrice)
 app.delete('/api/cart/:id', shoesCtrl.deleteItem)
+
+// hosting
+app.use(express.static(__dirname + '/../build'))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'))
+})
+
+app.listen(SERVER_PORT, () => console.log(`Server is bumping on ${SERVER_PORT}`))

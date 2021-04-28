@@ -68,7 +68,7 @@ code {
   /* align-content: center; */
   margin-right: 50px;
   margin-top:20px;
-  background-color:#FFFFE0;
+  /* background-color:#FFFFE0; */
   border: solid black 1px;
   /* padding: 20px; */
   width: 350px;
@@ -98,7 +98,7 @@ code {
 }
 
 .nikes-body{
-  background-color: #D8E2DC;
+  background-color: beige;
 }
 .adidas-body{
   background-color: beige;
@@ -123,7 +123,7 @@ code {
 }
 
 .jordans-body{
-  background-color: #ffcccb;
+  background-color: beige;
 }
 
 .wallpaper{

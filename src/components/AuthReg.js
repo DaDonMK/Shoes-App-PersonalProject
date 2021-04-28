@@ -61,35 +61,26 @@ class AuthReg extends Component{
       this.setState({last_name: inp})
     }
     
-     async register(){
+    register(){
         const { username, password, first_name, last_name } = this.state
-        let res = await axios.post('/auth/register', {username, password, first_name, last_name})
-
+          axios.post('/auth/register', {username, password, first_name, last_name})
+      .then(res => {
+        console.log(res.data)
         this.setState({ username: username, password: password, user: res.data.newUser, userName: res.data.newUser2, first_name: res.data.newUser2.first_name, last_name: res.data.newUser2.last_name});
         this.props.loginUser(username)
-        this.setState({fullName: this.state.first_name + ' ' + this.state.last_name})
-        this.props.getName(this.state.fullName)
-        console.log('full name from register: ' + this.props.giveMeName.name)
         
+        this.setState({fullName: this.state.first_name + ' ' + this.state.last_name})
+        // let fullName = this.state.first_name + ' ' + this.state.last_name
+        
+        this.props.getName(this.state.fullName)
+        
+        console.log('full name from register: ' + this.props.giveMeName.name)
         this.props.history.push('/')
-
-        // .then(res => {
-          // console.log(res.data)
-          // this.setState({ username: username, password: password, user: res.data.newUser, userName: res.data.newUser2, first_name: res.data.newUser2.first_name, last_name: res.data.newUser2.last_name});
-          
-          // let fullName = this.state.first_name + ' ' + this.state.last_name
-          
-          
-
-        // })
-        // .catch(err => {
-        //   console.log('it dont')
-        //   this.setState({ username: '', password: '' });
-        //   toast.error(err.response.request.response.toUpperCase())
-        // })
-      
-  // console.log('async bb')        
-      }
+      })
+      .catch(err => {
+        console.log('it dont')       
+      })
+    }
 
     //  register(){
     //   const { username, password, first_name, last_name } = this.state
@@ -129,7 +120,12 @@ class AuthReg extends Component{
               <ToastContainer />
                 <div className="title">Register</div>
 
-            <form className='form' onSubmit={this.register}>
+                <input type='text' placeholder="First Name" value={this.state.first_name} onChange={e => this.firstName(e.target.value)}/>
+                <input type='text' placeholder="Last Name" value={this.state.last_name} onChange={e => this.lastName(e.target.value)}/>
+                <input type='text' placeholder="Username" value={this.state.username} onChange={e => this.usernameInput(e.target.value)} />
+                <input type='password' placeholder="Password" value={this.state.password} onChange={e => this.passwordInput(e.target.value)}/>
+            <button onClick={this.register}>SUBMIT</button>
+            {/* <form className='form' onSubmit={this.register}>
               <label>
               <label>
                 First Name: 
@@ -147,7 +143,7 @@ class AuthReg extends Component{
                 <input type='password' placeholder="Password" value={this.state.password} onChange={e => this.passwordInput(e.target.value)}/>
               </label>
               <input type="submit" value="Submit" />
-            </form>
+            </form> */}
             {/* <button onClick={this.check}>Check</button> */}
 
             {/* <input

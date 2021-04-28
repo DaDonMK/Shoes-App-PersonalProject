@@ -19,7 +19,7 @@ const Message = (props) => {
 
      function handleToken (token){
 
-        axios.post('http://localhost:4200/checkout', {
+        axios.post('/checkout', {
             token,
             product
         })
@@ -45,7 +45,7 @@ const Message = (props) => {
         let email_add = input_email
         // const email_add2 = 'foreverything005@gmail.com'
 
-        axios.post('http://localhost:4200/email', {email_add})
+        axios.post('/email', {email_add})
         .then(res => {
             console.log(res.data)
         })
@@ -56,7 +56,7 @@ const Message = (props) => {
         console.log('send text: ' + number)
         const message = 'Order on the Way!'
 
-        fetch(`http://localhost:4200/send-message?recipient=${number}&textmessage=${message}`)
+        fetch(`/send-message?recipient=${number}&textmessage=${message}`)
         // .then(res => console.log('success twilio ' + res.data))
         // .then(response => response.json())
 

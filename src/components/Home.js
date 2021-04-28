@@ -82,10 +82,10 @@ export default class Home extends Component{
         let mappedData = this.state.all_shoes.map((element, i) => {
             return <div className='shoes-display' key={i}>
               
-            <h5 className='brand-text'>{element.brand.toUpperCase()}</h5>
+            <h3 className='brand-text'>{element.brand.toUpperCase()}</h3>
             <Link to={`/shoe/${element.id}`}><img className = 'shoe-images' src={element.image} alt='images' /></Link> 
-            <h5 className='shoe-name'>{element.shoe_name}</h5>
-            <h7 className='brand-text'>$ {element.price}.00</h7>
+            <h3 className='shoe-name'>{element.shoe_name}</h3>
+            <p1 className='shoe-name'>$ {element.price}.00</p1>
 
             </div> 
         })

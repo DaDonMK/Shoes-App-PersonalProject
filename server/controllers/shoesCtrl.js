@@ -1,5 +1,5 @@
 const cart = []
-let id = 1
+// let id = 1
 
 module.exports = {
 
@@ -126,7 +126,7 @@ module.exports = {
     create: (req, res) => {
 
         cart.push({
-            id: id, 
+            id: req.body.id, 
             image: req.body.image,
             name : req.body.name,
             price: req.body.price,
@@ -134,7 +134,7 @@ module.exports = {
             quant: req.body.quant,
             original_price: req.body.original_price
         })
-        id++
+        // id++
         res.status(200).send(cart)
     },
 
@@ -163,6 +163,7 @@ module.exports = {
         const {original_price} = req.body
         const {image} = req.body
         const {size} = req.body
+        const {id} = req.body
 
         let index = 0
         let price2 = price

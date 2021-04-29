@@ -75,7 +75,7 @@ class NikeOne extends Component{
        console.log(random)
     //    window.alert('"'+this.state.shoe_name+'"' + ' sent to cart!')
     //    this.setState({cart: 8})
-    axios.post('/api/cart', { name: random.name, image: random.image, price: random.price, size: random.size, quant: random.quant, original_price: random.original_price})
+    axios.post('/api/cart', { id: random.id, name: random.name, image: random.image, price: random.price, size: random.size, quant: random.quant, original_price: random.original_price})
     .then(res => {
         console.log(res.data)
         this.setState({cart: res.data})

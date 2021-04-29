@@ -70,7 +70,7 @@ class Cart extends Component{
         this.setState({input: ''})
         console.log('name ' + original_price)
         this.setState({quant: input})
-        axios.put(`/api/cart/${name}`, {quant: input, price: price, image: image, size: size, original_price: original_price})
+        axios.put(`/api/cart/${name}`, {id:id ,quant: input, price: price, image: image, size: size, original_price: original_price})
         .then(res => {
             console.log(res.data)
             this.setState({cart2: res.data})
@@ -100,7 +100,7 @@ class Cart extends Component{
             this.setState({cart2: res.data})
         })
         .catch(err => console.log(err + ' in deleteItem'))
-
+        window.location.reload(true)
     }
 
 
